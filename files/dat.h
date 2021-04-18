@@ -2,6 +2,7 @@
 #ifndef DAT_H
 #define DAT_H
 
+#include <iostream>
 #include <string>
 
 namespace dat {
