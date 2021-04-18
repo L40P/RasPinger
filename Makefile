@@ -3,7 +3,7 @@
 
 OUT = RasPinger.out
 CC = g++
-CFLAGS = -Wall
+CFLAGS = -Wall -g
 LIBS = -lwiringPi -lpthread
 
 _FILES = config.cpp config.h dat.cpp dat.h files.cpp files.h ips.cpp ips.h log.cpp log.h
