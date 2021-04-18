@@ -55,7 +55,7 @@ std::vector<KeyValue> DEFAULT_CONFIG = {
 	{config::PING_PACKETSIZE, 36},
 	{config::PING_TIMEOUT, 1},
 	{config::PING_TTL, 255},
-	{config::PING_INTERVAL, 1}
+	{config::PING_INTERVAL, 1000}
 };
 
 std::vector<KeyValue> LOADED_CONFIG = {};

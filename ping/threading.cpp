@@ -38,7 +38,7 @@ void threadMethod(std::string address) {
 }
 
 void threading::newThread(std::string address) {
+	std::cout << "newThread\n";
 	std::lock_guard<std::mutex> LOCK(MUTEX_THREADING);
-
 	THREADPOOL.push_back(std::thread(threadMethod, address));
 }
