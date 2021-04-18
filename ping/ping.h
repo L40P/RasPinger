@@ -1,4 +1,3 @@
-#pragma once
 #ifndef PING_H
 #define PING_H
 
