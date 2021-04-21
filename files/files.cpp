@@ -10,10 +10,12 @@
 
 
 
-std::string files::FILE_LOG = "RasPinger.log";
-std::string files::FILE_CONFIG = "RasPinger.conf";
-std::string files::FILE_IPS = "RasPinger_IPs.conf";
-std::string files::FILE_DAT = "RasPinger.dat";
+std::string files::APP_NAME =		"RasPinger";
+std::string files::DIRECTORY =		"/home/pi/" + APP_NAME;
+std::string files::FILE_LOG =		DIRECTORY + "/" + APP_NAME + ".log";
+std::string files::FILE_CONFIG =	DIRECTORY + "/" + APP_NAME + ".conf";
+std::string files::FILE_IPS =		DIRECTORY + "/" + APP_NAME + "_IPs.conf";
+std::string files::FILE_DAT =		DIRECTORY + "/" + APP_NAME + ".dat";
 
 void files::init() {
 	log::init();

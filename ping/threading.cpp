@@ -2,11 +2,13 @@
 
 #include "ping.h"
 #include "../files/dat.h"
+#include "../files/log.h"
 #include "../gpio/gpio.h"
 
 #include <iostream>
 #include <algorithm>
 #include <mutex>
+#include <sstream>
 #include <thread>
 #include <vector>
 
@@ -19,6 +21,9 @@ void run(std::string address) {
 	ping::RegexResult result = ping::REGEX_RTT.match(ping::ping(address));
 
 	dat::setStatus(address, result.match, result.success);
+	std::stringstream ss;
+	ss << "Ping result from " << address << " - " << result.match << " (" << result.success << ")";
+	log::write(ss.str().c_str());
 	gpio::update();
 }
 
@@ -38,7 +43,6 @@ void threadMethod(std::string address) {
 }
 
 void threading::newThread(std::string address) {
-	std::cout << "newThread\n";
 	std::lock_guard<std::mutex> LOCK(MUTEX_THREADING);
 	THREADPOOL.push_back(std::thread(threadMethod, address));
 }

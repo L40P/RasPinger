@@ -30,9 +30,9 @@ void ips::init() {
 }
 
 std::string ips::nextIP() {
-	std::string* ip = &vector_ips[index_ips];
+	std::string ip = vector_ips[index_ips];
 	index_ips++;
 	if (index_ips >= vector_ips.size())
 		index_ips = 0;
-	return *ip;
+	return ip.c_str();
 }

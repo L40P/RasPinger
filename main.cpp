@@ -20,8 +20,8 @@ void init() {
 }
 
 void loop() {
-	//threading::newThread(ips::nextIP()); // SEGMENTATION FAULT
-	threading::newThread("google.de");
+	threading::newThread(ips::nextIP()); // SEGMENTATION FAULT
+	//threading::newThread("google.de");
 	delay(INTERVAL);
 }
 

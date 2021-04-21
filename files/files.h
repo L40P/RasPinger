@@ -5,6 +5,7 @@
 #include <string>
 
 namespace files {
+	extern std::string APP_NAME;
 	extern std::string DIRECTORY;
 	extern std::string FILE_LOG;
 	extern std::string FILE_CONFIG;
