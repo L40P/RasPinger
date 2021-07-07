@@ -26,14 +26,14 @@ void dat::init() {
 	files::checkFile(files::FILE_DAT, "");
 }
 
-dat::i = 0;
+int dat::i = 0;
 void dumpIPStatus() {
 	std::ofstream file_dat = std::ofstream(files::FILE_DAT, std::fstream::out | std::fstream::trunc);
 
 	for (IP_Status is : vector_ipstatus)
 		file_dat << is.ip << " - " << is.status << "\n";
 
-	file_dat << i++ << "\n";
+	file_dat << dat::i++ << "\n";
 
 	file_dat.close();
 }
