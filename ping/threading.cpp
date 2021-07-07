@@ -23,7 +23,7 @@ void run(std::string ip) {
 	dat::setStatus(ip, result.match, result.success);
 	std::stringstream ss;
 	ss << "Ping result (" << result.success << ") " << result.match << " from " << ip;
-	//log::write(ss.str().c_str());
+	log::write(ss.str().c_str());
 	gpio::update();
 }
 

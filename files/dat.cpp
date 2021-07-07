@@ -1,11 +1,9 @@
 #include "dat.h"
 
 #include "files.h"
-#include "log.h"
 
 #include <fstream>
 #include <mutex>
-#include <sstream>
 #include <vector>
 
 
@@ -42,13 +40,8 @@ void dat::setStatus(std::string ip, std::string status, bool success) {
 
 	for (IP_Status* is : vector_ipstatus)
 		if (is->ip == ip) {
-			std::stringstream ss;
-			ss << ip << " old=" << is->status << " new=" << status;
-			log::write(ss.str().c_str());
-
 			is->status = status;
 			is->success = success;
-
 			goto DUMP;
 		}
 
