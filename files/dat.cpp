@@ -1,9 +1,11 @@
 #include "dat.h"
 
 #include "files.h"
+#include "log.h"
 
 #include <fstream>
 #include <mutex>
+#include <sstream>
 #include <vector>
 
 
@@ -41,7 +43,7 @@ void dat::setStatus(std::string ip, std::string status, bool success) {
 	for (IP_Status* is : vector_ipstatus)
 		if (is->ip == ip) {
 			std::stringstream ss;
-			ss << address << " old=" << is->status << " new=" << status;
+			ss << ip << " old=" << is->status << " new=" << status;
 			log::write(ss.str().c_str());
 
 			is->status = status;
@@ -50,7 +52,7 @@ void dat::setStatus(std::string ip, std::string status, bool success) {
 			goto DUMP;
 		}
 
-	vector_ipstatus.push_back(IP_Status(ip, status, success));
+	vector_ipstatus.push_back(new IP_Status(ip, status, success));
 
 DUMP:
 	dumpIPStatus();

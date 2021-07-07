@@ -5,7 +5,7 @@
 #include <string>
 
 namespace threading {
-	void newThread(std::string address);
+	void newThread(std::string ip);
 }
 
 #endif

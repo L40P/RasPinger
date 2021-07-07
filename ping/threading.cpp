@@ -17,12 +17,12 @@
 std::mutex MUTEX_THREADING;
 std::vector<std::thread> THREADPOOL = {};
 
-void run(std::string address) {
-	ping::RegexResult result = ping::REGEX_RTT.match(ping::ping(address));
+void run(std::string ip) {
+	ping::RegexResult result = ping::REGEX_RTT.match(ping::ping(ip));
 
-	dat::setStatus(address, result.match, result.success);
+	dat::setStatus(ip, result.match, result.success);
 	std::stringstream ss;
-	ss << "Ping result (" << result.success << ") " << result.match << " from " << address;
+	ss << "Ping result (" << result.success << ") " << result.match << " from " << ip;
 	//log::write(ss.str().c_str());
 	gpio::update();
 }
@@ -37,12 +37,12 @@ void terminate(std::thread::id id) {
 	}
 }
 
-void threadMethod(std::string address) {
-	run(address);
+void threadMethod(std::string ip) {
+	run(ip);
 	std::thread(terminate, std::this_thread::get_id()).detach();
 }
 
-void threading::newThread(std::string address) {
+void threading::newThread(std::string ip) {
 	std::lock_guard<std::mutex> LOCK(MUTEX_THREADING);
-	THREADPOOL.push_back(std::thread(threadMethod, address));
+	THREADPOOL.push_back(std::thread(threadMethod, ip));
 }
