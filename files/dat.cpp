@@ -20,20 +20,17 @@ struct IP_Status {
 };
 
 std::mutex MUTEX_DAT;
-std::vector<IP_Status> vector_ipstatus;
+std::vector<IP_Status*> vector_ipstatus;
 
 void dat::init() {
 	files::checkFile(files::FILE_DAT, "");
 }
 
-int dat::i = 0;
 void dumpIPStatus() {
 	std::ofstream file_dat = std::ofstream(files::FILE_DAT, std::fstream::out | std::fstream::trunc);
 
-	for (IP_Status is : vector_ipstatus)
-		file_dat << is.ip << " - " << is.status << "\n";
-
-	file_dat << dat::i++ << "\n";
+	for (IP_Status* is : vector_ipstatus)
+		file_dat << is->ip << " - " << is->status << "\n";
 
 	file_dat.close();
 }
@@ -41,10 +38,15 @@ void dumpIPStatus() {
 void dat::setStatus(std::string ip, std::string status, bool success) {
 	std::lock_guard<std::mutex> LOCK(MUTEX_DAT);
 
-	for (IP_Status is : vector_ipstatus)
-		if (is.ip == ip) {
-			is.status = status;
-			is.success = success;
+	for (IP_Status* is : vector_ipstatus)
+		if (is->ip == ip) {
+			std::stringstream ss;
+			ss << address << " old=" << is->status << " new=" << status;
+			log::write(ss.str().c_str());
+
+			is->status = status;
+			is->success = success;
+
 			goto DUMP;
 		}
 
@@ -57,8 +59,8 @@ DUMP:
 bool dat::hasReached() {
 	std::lock_guard<std::mutex> LOCK(MUTEX_DAT);
 
-	for (IP_Status is : vector_ipstatus)
-		if (is.success)
+	for (IP_Status* is : vector_ipstatus)
+		if (is->success)
 			return true;
 
 	return false;
@@ -67,8 +69,8 @@ bool dat::hasReached() {
 bool dat::hasNotReached() {
 	std::lock_guard<std::mutex> LOCK(MUTEX_DAT);
 	
-	for (IP_Status is : vector_ipstatus)
-		if (!is.success)
+	for (IP_Status* is : vector_ipstatus)
+		if (!is->success)
 			return true;
 
 	return false;
