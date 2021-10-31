@@ -21,10 +21,13 @@ void run(std::string ip) {
 	ping::RegexResult result = ping::REGEX_RTT.match(ping::ping(ip));
 
 	dat::setStatus(ip, result.match, result.success);
-	std::stringstream ss;
-	ss << "Ping result (" << result.success << ") " << result.match << " from " << ip;
-	log::write(ss.str().c_str());
 	gpio::update();
+	
+	if (result.success) return;
+	
+	std::stringstream ss;
+	ss << "Couldn't reach " << ip;
+	log::write(ss.str().c_str());
 }
 
 void terminate(std::thread::id id) {

@@ -6,7 +6,7 @@
 #include <string>
 
 namespace ping {
-
+	
 	struct RegexResult {
 		bool success;
 		std::string match;
