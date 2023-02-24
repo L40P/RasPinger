@@ -16,20 +16,22 @@ void init() {
 	files::init();
 	gpio::init();
 	ping::init();
-	INTERVAL = config::getValue(config::PING_INTERVAL);
+	
+	INTERVAL = config::getValue(config::Key::PING_INTERVAL);
 }
 
 void loop() {
 	threading::newThread(ips::nextIP());
+	
 	delay(INTERVAL);
 }
 
-int main(void)
-{
+int main() {
 	init();
-
-	while (true)
+	
+	while(true) {
 		loop();
-
+	}
+	
 	return 0;
 }

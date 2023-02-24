@@ -29,8 +29,9 @@ void dat::init() {
 void dumpIPStatus() {
 	std::ofstream file_dat = std::ofstream(files::FILE_DAT, std::fstream::out | std::fstream::trunc);
 
-	for (IP_Status* is : vector_ipstatus)
+	for(IP_Status* is : vector_ipstatus) {
 		file_dat << is->ip << " - " << is->status << "\n";
+	}
 
 	file_dat.close();
 }
@@ -38,12 +39,13 @@ void dumpIPStatus() {
 void dat::setStatus(std::string ip, std::string status, bool success) {
 	std::lock_guard<std::mutex> LOCK(MUTEX_DAT);
 
-	for (IP_Status* is : vector_ipstatus)
-		if (is->ip == ip) {
+	for(IP_Status* is : vector_ipstatus) {
+		if(is->ip == ip) {
 			is->status = status;
 			is->success = success;
 			goto DUMP;
 		}
+	}
 
 	vector_ipstatus.push_back(new IP_Status(ip, status, success));
 
@@ -51,22 +53,26 @@ DUMP:
 	dumpIPStatus();
 }
 
-bool dat::hasReached() {
+bool dat::wasAnyReached() {
 	std::lock_guard<std::mutex> LOCK(MUTEX_DAT);
 
-	for (IP_Status* is : vector_ipstatus)
-		if (is->success)
+	for(IP_Status* is : vector_ipstatus) {
+		if(is->success) {
 			return true;
+		}
+	}
 
 	return false;
 }
 
-bool dat::hasNotReached() {
+bool dat::wasAnyNotReached() {
 	std::lock_guard<std::mutex> LOCK(MUTEX_DAT);
 	
-	for (IP_Status* is : vector_ipstatus)
-		if (!is->success)
+	for(IP_Status* is : vector_ipstatus) {
+		if(!is->success) {
 			return true;
+		}
+	}
 
 	return false;
 }

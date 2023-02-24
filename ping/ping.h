@@ -1,7 +1,6 @@
 #ifndef PING_H
 #define PING_H
 
-#include <iostream>
 #include <regex>
 #include <string>
 

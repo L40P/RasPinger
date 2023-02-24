@@ -1,12 +1,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <iostream>
-
 namespace config {
-
-	enum Key {
-		UNDEFINED = -1,
+	enum class Key {
+		UNDEFINED,
 		PIN_GREEN,
 		PIN_RED,
 		PING_PACKETSIZE,

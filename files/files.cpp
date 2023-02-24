@@ -26,19 +26,22 @@ void files::init() {
 
 void files::checkFile(std::string path, std::string defaultContent) {
 	std::fstream file(path, std::fstream::in);
-	if (file.peek() == std::fstream::traits_type::eof()) {
+	
+	if(file.peek() == std::fstream::traits_type::eof()) {
 		file.close();
 		file.open(path, std::fstream::out);
 		file << defaultContent;
 	}
+	
 	file.close();
 }
 
 std::string files::timestamp() {
 	time_t now = std::time(0);
 	struct tm* time = std::localtime(&now);
-
+	
 	char buffer[30];
 	std::strftime(buffer, 30, "%d.%m.%Y %H:%M:%S", time);
+	
 	return std::string(buffer).substr(0, 19);
 }
