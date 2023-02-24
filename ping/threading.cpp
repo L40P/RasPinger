@@ -5,7 +5,6 @@
 #include "../files/log.h"
 #include "../gpio/gpio.h"
 
-#include <iostream>
 #include <algorithm>
 #include <mutex>
 #include <sstream>
@@ -23,7 +22,7 @@ void run(std::string ip) {
 	dat::setStatus(ip, result.match, result.success);
 	gpio::update();
 	
-	if (result.success) return;
+	if(result.success) return;
 	
 	std::stringstream ss;
 	ss << "Couldn't reach " << ip;
@@ -34,7 +33,7 @@ void terminate(std::thread::id id) {
 	std::lock_guard<std::mutex> LOCK(MUTEX_THREADING);
 
 	auto iterator = std::find_if(THREADPOOL.begin(), THREADPOOL.end(), [=](std::thread& t) { return (t.get_id() == id); });
-	if (iterator != THREADPOOL.end()) {
+	if(iterator != THREADPOOL.end()) {
 		iterator->join();
 		THREADPOOL.erase(iterator);
 	}

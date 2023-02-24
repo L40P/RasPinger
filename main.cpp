@@ -5,8 +5,8 @@
 #include "ping/ping.h"
 #include "ping/threading.h"
 
-#include <iostream>
-#include <wiringPi.h>
+#include <chrono>
+#include <thread>
 
 
 
@@ -23,7 +23,7 @@ void init() {
 void loop() {
 	threading::newThread(ips::nextIP());
 	
-	delay(INTERVAL);
+	std::this_thread::sleep_for(std::chrono::milliseconds(INTERVAL));
 }
 
 int main() {

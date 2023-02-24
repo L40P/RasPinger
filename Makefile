@@ -4,7 +4,7 @@
 OUT = RasPinger.out
 CC = g++
 CFLAGS = -Wall -g
-LIBS = -lwiringPi -lpthread
+LIBS = -lpthread -lpigpiod_if2 -lrt
 
 _FILES = config.cpp config.h dat.cpp dat.h files.cpp files.h ips.cpp ips.h log.cpp log.h
 FILES = ${_FILES:%=files/%}
